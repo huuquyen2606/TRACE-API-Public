@@ -126,11 +126,13 @@ class KnowledgeIngestor:
 
         exclude_cves = self._collect_dataset_cve_ids(dataset_dir)
 
-        have_poc = dataset_dir / "HavePoC.json"
+        corpus_dir = dataset_dir / "rag_corpus"
+
+        have_poc = corpus_dir / "HavePoC.json"
         if have_poc.exists():
             total += self.ingest_have_poc(have_poc, exclude_cves)
 
-        no_poc = dataset_dir / "NoPoC.json"
+        no_poc = corpus_dir / "NoPoC.json"
         if no_poc.exists():
             total += self.ingest_no_poc(no_poc, exclude_cves)
 

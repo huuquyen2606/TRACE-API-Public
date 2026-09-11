@@ -8,6 +8,8 @@ TRACE-API is an evidence-grounded agentic framework for autonomous penetration t
 
 The framework combines a persistent API Asset Graph, vulnerability-knowledge grounding, hybrid deterministic--LLM reconnaissance, graph-conditioned attack planning and validation, and bounded fallback and replanning. Agent-side evidence judgments guide execution, while final exploitation outcomes are adjudicated independently from archived action--observation traces using target-specific criteria. This separation distinguishes apparent progress from objectively supported exploitation.
 
+TRACE-API is evaluated against three recent LLM-based penetration-testing frameworks — [VulnBot](https://github.com/KHenryAegis/VulnBot), [PentestAgent](https://github.com/nbshenxm/pentest-agent), and [PentestGPT](https://github.com/greydgl/pentestgpt) — on 35 containerized known-vulnerability HTTP/API targets across four open-weight LLM backbones (560 runs in total). TRACE-API is the only framework to reach evidence-validated (Full) exploitation, confirming six distinct CVEs and producing Full validation under every backbone, whereas the baselines reach at most partial evidence (VulnBot, PentestAgent) or none (PentestGPT).
+
 This repository contains the framework implementation. The benchmark dataset and the paper are maintained separately (see [Dataset](#dataset) and
 [Citation](#citation)).
 
@@ -127,11 +129,13 @@ Sessions are written to `sessions/`, reports to `reports/`, and batch metrics to
 
 ## Dataset
 
-The benchmark dataset is not distributed in this repository. The dataset commands (`batch`, `healthcheck`, `targets`, `knowledge ingest`) expect a `dataset/` directory with:
+The benchmark dataset is not distributed in this repository. Download it here: https://drive.google.com/drive/folders/1bZFh80IUO0FL_XaqRugOWlaiHYtyNUr0?usp=sharing
+
+The dataset commands (`batch`, `healthcheck`, `targets`, `knowledge ingest`) expect a `dataset/` directory with:
 
 - one folder per target CVE (`CVE-XXXX-XXXXX/`) holding a container environment that a Compose file or Dockerfile can launch;
 - `manifest.yaml`, the launch manifest keyed by CVE (Compose path, ports, health path, timeouts); run `trace-api manifest generate` to create it;
-- `HavePoC.json` and `NoPoC.json`, the background CVE corpus ingested into the retrieval knowledge base.
+- `rag_corpus/HavePoC.json` and `rag_corpus/NoPoC.json`, the background CVE corpus ingested into the retrieval knowledge base.
 
 ## Responsible Use
 
